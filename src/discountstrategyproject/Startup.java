@@ -15,7 +15,16 @@ public class Startup {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+        //configuration info
+        Store store = new Store("Kohl's");
+        
+        //initialize POS system
+        POSRegister pos = new POSRegister(store);
+        
+        //start transactions
+        pos.startNewSale(); //need new receipt
+        pos.addItemToSale("A101", 2);
+        pos.addItemToSale("B200", 6);
+        pos.endSale(); //print receipt
+    }    
 }
