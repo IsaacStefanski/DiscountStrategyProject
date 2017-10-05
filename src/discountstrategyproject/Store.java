@@ -13,7 +13,7 @@ public class Store {
     private String name;
     
     public Store (String name){
-        this.name = name;
+        setName(name);
     }
 
     public final String getName() {
@@ -21,6 +21,11 @@ public class Store {
     }
 
     public final void setName(String name) {
-        this.name = name;
+        if(name != null){
+            this.name = name;
+        }
+        else {
+            throw new IllegalArgumentException("Store name cannot be null");
+        }
     }
 }

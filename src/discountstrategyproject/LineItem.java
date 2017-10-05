@@ -10,5 +10,5 @@ package discountstrategyproject;
  * @author Isaac
  */
 public class LineItem {
-    
+    private Product[] products;
 }

@@ -21,11 +21,11 @@ public class PercentOffDiscount implements Discount {
         return unitCost * qty * percentOff;
     }
 
-    public double getPercentOff() {
+    public final double getPercentOff() {
         return percentOff;
     }
 
-    public void setPercentOff(double percentOff) {
+    public final void setPercentOff(double percentOff) {
         if(percentOff < 0){
             throw new IllegalArgumentException("...");
         }
