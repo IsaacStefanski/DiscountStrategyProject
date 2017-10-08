@@ -11,4 +11,10 @@ package discountstrategyproject;
  */
 public class Receipt {
     private LineItem[] lineItems;
+    
+    public final void printReceipt(){
+        for (LineItem l : lineItems){
+            System.out.println("\n" + l);
+        }
+    }
 }

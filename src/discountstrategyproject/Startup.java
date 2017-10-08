@@ -22,9 +22,11 @@ public class Startup {
         POSRegister pos = new POSRegister(store);
         
         //start transactions
+        /*
         pos.startNewSale(); //need new receipt
         pos.addItemToSale("A101", 2);
         pos.addItemToSale("B200", 6);
         pos.endSale(); //print receipt
+        */
     }    
 }

@@ -11,6 +11,7 @@ package discountstrategyproject;
  */
 public class POSRegister {
     private Store store;
+    private Receipt receipt;
     
     public POSRegister(Store store) {
         this.store = store;
@@ -26,5 +27,14 @@ public class POSRegister {
         else {
             throw new IllegalArgumentException("Store cannot be null");
         }
+    }
+    
+    public final Receipt startNewSale(){
+        receipt = new Receipt();
+        return receipt;
+    }
+    
+    public final void endSale(){
+        receipt.printReceipt();
     }
 }

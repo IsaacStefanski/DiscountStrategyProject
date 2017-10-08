@@ -13,13 +13,15 @@ public class Product {
     private String prodId;
     private String prodName;
     private double unitCost;
+    private double qty;
+    private double extCost;
     private Discount discount;
 
     public Product(String prodId, String prodName, double unitCost, Discount discount) {
-        this.prodId = prodId;
-        this.prodName = prodName;
-        this.unitCost = unitCost;
-        this.discount = discount;
+        setProdId(prodId);
+        setProdName(prodName);
+        setUnitCost(unitCost);
+        setDiscount(discount);
     }
     
     public final double getDiscountAmt(double qty){
@@ -31,7 +33,11 @@ public class Product {
     }
 
     public final void setProdId(String prodId) {
-        this.prodId = prodId;
+        if(prodId != null){
+            this.prodId = prodId;
+        } else {
+            throw new IllegalArgumentException("Product ID cannot be null");
+        }
     }
 
     public final double getUnitCost() {
@@ -39,7 +45,11 @@ public class Product {
     }
 
     public final void setUnitCost(double unitCost) {
-        this.unitCost = unitCost;
+        if(unitCost >= 0.00){
+            this.unitCost = unitCost;
+        } else {
+            throw new IllegalArgumentException("Unit Cost must be at least 0.00");
+        }
     }
 
     public final String getProdName() {
@@ -47,7 +57,11 @@ public class Product {
     }
 
     public final void setProdName(String prodName) {
-        this.prodName = prodName;
+        if(prodName != null){
+            this.prodName = prodName;
+        } else {
+            throw new IllegalArgumentException("Product Name cannot be null");
+        }
     }
 
     public final Discount getDiscount() {
@@ -55,16 +69,34 @@ public class Product {
     }
 
     public final void setDiscount(Discount discount) {
-        this.discount = discount;
+        if(discount != null){
+            this.discount = discount;
+        } else {
+            throw new IllegalArgumentException("Discount cannot be null");
+        }
     }
-    
-    public static void main(String[] args) {
-        Product product1 = new Product("A101", "Baseball Hat", 19.95, new PercentOffDiscount(.10));
-        Product product2 = new Product("B200", "Men's Belt", 39.95, new QtyPercentOffDiscount(.10, 5));
-        
-        double amt1 = product1.getDiscountAmt(2);
-        System.out.println("Discount for Baseball Hat should be 3.90, but is " + amt1);
-        double amt2 = product2.getDiscountAmt(6);
-        System.out.println("Discount for Belt should be 239.70, but is " + amt2);
+
+    public double getQty() {
+        return qty;
+    }
+
+    public void setQty(double qty) {
+        if(qty >= 0.00){
+            this.qty = qty;
+        } else {
+            throw new IllegalArgumentException("Quantity must be at least 0.00");
+        }
+    }
+
+    public double getExtCost() {
+        return extCost;
+    }
+
+    public void setExtCost(double extCost) {
+        if(extCost >= 0.00){
+            this.extCost = extCost;
+        } else {
+            throw new IllegalArgumentException("Extended Cost must be at least 0.00");
+        }
     }
 }
