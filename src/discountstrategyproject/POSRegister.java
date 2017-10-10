@@ -7,9 +7,10 @@ package discountstrategyproject;
 public class POSRegister {
     private Store store;
     private Receipt receipt;
+    InMemoryDatabase db;
     
     public POSRegister(Store store) {
-        this.store = store;
+        setStore(store);
     }
     
     public final Store getStore() {
@@ -25,13 +26,13 @@ public class POSRegister {
         }
     }
     
-    public final Receipt startNewSale(Customer customer){
-        Receipt receipt = new Receipt(store, customer);
+    public final Receipt startNewSale(String customerID){
+        receipt = new Receipt(store, db.findCustomer(customerID));
         return receipt;
     }
     
-    public final void addItemToSale(String prodId, String prodName, double qty){
-        
+    public final void addItemToSale(String prodId, double qty){
+        LineItem li = new LineItem(db.findProduct(prodId), qty);
     }
     
     public final void endSale(){
