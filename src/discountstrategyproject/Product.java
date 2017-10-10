@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package discountstrategyproject;
 
 /**
@@ -13,8 +8,6 @@ public class Product {
     private String prodId;
     private String prodName;
     private double unitCost;
-    private double qty;
-    private double extCost;
     private Discount discount;
 
     public Product(String prodId, String prodName, double unitCost, Discount discount) {
@@ -73,30 +66,6 @@ public class Product {
             this.discount = discount;
         } else {
             throw new IllegalArgumentException("Discount cannot be null");
-        }
-    }
-
-    public double getQty() {
-        return qty;
-    }
-
-    public void setQty(double qty) {
-        if(qty >= 0.00){
-            this.qty = qty;
-        } else {
-            throw new IllegalArgumentException("Quantity must be at least 0.00");
-        }
-    }
-
-    public double getExtCost() {
-        return extCost;
-    }
-
-    public void setExtCost(double extCost) {
-        if(extCost >= 0.00){
-            this.extCost = extCost;
-        } else {
-            throw new IllegalArgumentException("Extended Cost must be at least 0.00");
         }
     }
 }

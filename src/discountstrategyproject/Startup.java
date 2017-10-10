@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package discountstrategyproject;
 
 /**
@@ -16,17 +11,16 @@ public class Startup {
      */
     public static void main(String[] args) {
         //configuration info
-        Store store = new Store("Kohl's");
+        Store store = new Store("Kohl's", "Howell Avenue, Oak Creek, WI  53154", 2);
         
         //initialize POS system
         POSRegister pos = new POSRegister(store);
         
         //start transactions
-        /*
-        pos.startNewSale(); //need new receipt
-        pos.addItemToSale("A101", 2);
-        pos.addItemToSale("B200", 6);
-        pos.endSale(); //print receipt
-        */
+        pos.startNewSale(new Customer("AB12001", "John Smith"));
+        pos.addItemToSale("A101", "Baseball Hat", 1);
+        pos.addItemToSale("B202", "Men's Leather Belt", 1);
+        pos.addItemToSale("C303", "Men's Tie", 2);
+        pos.endSale();
     }    
 }

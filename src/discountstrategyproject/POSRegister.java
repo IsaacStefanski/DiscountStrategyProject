@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package discountstrategyproject;
 
 /**
@@ -16,6 +11,7 @@ public class POSRegister {
     public POSRegister(Store store) {
         this.store = store;
     }
+    
     public final Store getStore() {
         return store;
     }
@@ -29,12 +25,20 @@ public class POSRegister {
         }
     }
     
-    public final Receipt startNewSale(){
-        receipt = new Receipt();
+    public final Receipt startNewSale(Customer customer){
+        Receipt receipt = new Receipt(store, customer);
         return receipt;
     }
     
+    public final void addItemToSale(String prodId, String prodName, double qty){
+        
+    }
+    
     public final void endSale(){
-        receipt.printReceipt();
+        VideoDisplay display = new VideoDisplay();
+        display.outputReceipt();
+        
+        ReceiptPrinter printer = new ReceiptPrinter();
+        printer.outputReceipt();
     }
 }
