@@ -13,12 +13,15 @@ public class Receipt {
     private Store store;
     private Customer customer;
     private LineItem[] lineItems;
+    private ReceiptDataAccessStrategy db;
+    private double total = 0.00;
     
-    public Receipt(Store store, Customer customer){
+    public Receipt(Store store, String customerID, ReceiptDataAccessStrategy db){
         incrementReceiptCount();
         orderDate = new Date();
         setStore(store);
-        setCustomer(customer);
+        setCustomer(db.findCustomer(customerID));
+        lineItems = new LineItem[0];
     }
     
     private final void incrementReceiptCount(){
@@ -32,19 +35,29 @@ public class Receipt {
         lineItems = tempItems;
     }
     
-    public final String printReceipt(){
-        StringBuilder sb = new StringBuilder();
-        
-        sb.append("Order Number: " + getReceiptNum());
-        sb.append("Customer: " + customer.getCustomerID());
-        sb.append("");
-        sb.append(store.toString());
-        sb.append("");
+    public final void addItem(String prodID, double qty){
+        addToLineItemsArray(new LineItem(db.findProduct(prodID), qty));
+    }
+    
+    public final String buildReceipt(){
+        String s = new String();        
+        s += "Order Number: " + getReceiptNum();
+        s += "\n";
+        s += "Customer: " + customer.getCustomerID() + " " + customer.getName();
+        s += "\n";
+        s += store.toString();
+        s += "\n";
         for (LineItem l : lineItems){
-            sb.append("\n" + l);
+            s += ("\n" + l.toString());
         }
-        
-        return sb.toString();
+        s += total;
+        return s;
+    }
+    
+    public final void calcTotal(){
+        for (LineItem l : lineItems){
+            total += (l.getItemSubtotal() - l.findDiscountAmt());
+        }
     }
 
     public final static int getReceiptNum() {

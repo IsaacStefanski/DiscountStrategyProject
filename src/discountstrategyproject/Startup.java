@@ -11,15 +11,16 @@ public class Startup {
      */
     public static void main(String[] args) {
         //configuration info
-        Store store = new Store("Kohl's", "Howell Avenue, Oak Creek, WI  53154", 2);
+        Store store = new Store("Kohl's", "Howell Avenue, Oak Creek, WI  53154", 10);
+        InMemoryDatabase db = new InMemoryDatabase();
         
         //initialize POS system
-        POSRegister pos = new POSRegister(store);
+        POSRegister pos = new POSRegister(store, db);
         
         //start transactions
         pos.startNewSale("100");
         pos.addItemToSale("A101", 1);
-        pos.addItemToSale("A1012", 1);
+        pos.addItemToSale("A102", 1);
         pos.addItemToSale("B204", 2);
         pos.endSale();
         

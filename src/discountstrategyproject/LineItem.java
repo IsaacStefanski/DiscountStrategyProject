@@ -8,14 +8,21 @@ public class LineItem {
     private Product product;
     private double qty;
     private double itemSubtotal;
+    private double discountAmt;
     
     public LineItem(Product product, double qty){
         setProduct(product);
         setQty(qty);
+        itemSubtotal = findItemSubtotal();
+        discountAmt = findDiscountAmt();
     }
     
-    public final double calcItemSubtotal(){
+    public final double findItemSubtotal(){
         return qty * product.getUnitCost();
+    }
+    
+    public final double findDiscountAmt(){
+        return product.getDiscount().getDiscountAmt(product.getUnitCost(), qty);
     }
     
     public final void setProduct(Product product){
@@ -52,6 +59,7 @@ public class LineItem {
     
     @Override
     public final String toString(){
-        return product.getProdId() + "  " + product.getProdName() + "  " + getQty() + "  " + product.getUnitCost() + "  " + calcItemSubtotal() + "  " + product.getDiscount();
+        return product.getProdId() + "  " + product.getProdName() + "  " + getQty() + "  " +
+                product.getUnitCost() + "  " + itemSubtotal + "  " + discountAmt;
     }
 }

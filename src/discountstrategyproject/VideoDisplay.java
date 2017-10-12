@@ -9,8 +9,20 @@ import javax.swing.JOptionPane;
 public class VideoDisplay implements ReceiptOutput {
     private Receipt receipt;
     
+    public VideoDisplay(Receipt receipt){
+        setReceipt(receipt);
+    }
+    
     @Override
     public void outputReceipt() {
-        JOptionPane.showConfirmDialog(null, receipt.printReceipt());
+        JOptionPane.showMessageDialog(null, receipt.buildReceipt());
+    }
+    
+    public final void setReceipt(Receipt receipt){
+        if(receipt != null){
+            this.receipt = receipt;
+        } else {
+            throw new IllegalArgumentException("Null receipt");
+        }
     }
 }
