@@ -1,6 +1,5 @@
 package discountstrategyproject;
 
-import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -17,6 +16,7 @@ public class Receipt {
     private double total = 0.00;
     
     public Receipt(Store store, String customerID, ReceiptDataAccessStrategy db){
+        setDatabase(db);
         incrementReceiptCount();
         orderDate = new Date();
         setStore(store);
@@ -40,7 +40,7 @@ public class Receipt {
     }
     
     public final String buildReceipt(){
-        String s = new String();        
+        String s = "";        
         s += "Order Number: " + getReceiptNum();
         s += "\n";
         s += "Customer: " + customer.getCustomerID() + " " + customer.getName();
@@ -110,5 +110,18 @@ public class Receipt {
         } else {
             throw new IllegalArgumentException("LineItems[] cannot be null");
         }
-    }    
+    } 
+    
+    public final ReceiptDataAccessStrategy getDatabase(){
+        return db;
+    }
+    
+    public final void setDatabase(ReceiptDataAccessStrategy db){
+        if(db != null){
+            this.db = db;
+        }
+        else {
+            throw new IllegalArgumentException("Database cannot be null");
+        }
+    }
 }
