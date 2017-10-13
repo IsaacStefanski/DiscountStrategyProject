@@ -45,7 +45,7 @@ public class Receipt {
     public final String buildReceipt(){
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("en", "US"));
         String s = "";        
-        s += "Order Number: " + getReceiptNum() + "  Date of Sale:" + orderDate;
+        s += "Order Number: " + getReceiptNum() + "   Date of Sale: " + orderDate;
         s += "\nCustomer: " + customer.getCustomerID() + " " + customer.getName();
         s += "\n\n";
         s += store.toString();
