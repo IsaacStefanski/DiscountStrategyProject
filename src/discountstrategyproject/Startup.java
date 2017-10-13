@@ -15,7 +15,7 @@ public class Startup {
         InMemoryDatabase db = new InMemoryDatabase();
         
         //initialize POS system
-        POSRegister pos = new POSRegister(store, db);
+        POSRegister pos = new POSRegister(store, db, 0.056);
         
         //start transactions
         pos.startNewSale("100");

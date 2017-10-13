@@ -10,10 +10,12 @@ public class POSRegister {
     private Store store;
     private Receipt receipt;
     private ReceiptDataAccessStrategy db;
+    private double salesTaxPercent;
     
-    public POSRegister(Store store, ReceiptDataAccessStrategy db) {
+    public POSRegister(Store store, ReceiptDataAccessStrategy db, double salesTaxPercent) {
         setStore(store);
         setDatabase(db);
+        setSalesTax(salesTaxPercent);
     }
     
     public final Store getStore() {
@@ -43,7 +45,7 @@ public class POSRegister {
     }
     
     public final void startNewSale(String customerID){
-        receipt = new Receipt(store, customerID, db);
+        receipt = new Receipt(store, customerID, db, salesTaxPercent);
     }
     
     public final void addItemToSale(String prodId, double qty){
@@ -56,5 +58,18 @@ public class POSRegister {
         
         ReceiptPrinter printer = new ReceiptPrinter(receipt);
         printer.outputReceipt();
+    }
+    
+    public final double getSalesTax(){
+        return salesTaxPercent;
+    }
+    
+    public final void setSalesTax(double salesTaxPercent){
+        if(salesTaxPercent >= 0.00){
+            this.salesTaxPercent = salesTaxPercent;
+        }
+        else {
+            throw new IllegalArgumentException("Sales tac must be more than 0.00");
+        }
     }
 }

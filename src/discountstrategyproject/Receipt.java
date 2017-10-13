@@ -1,6 +1,8 @@
 package discountstrategyproject;
 
+import java.text.NumberFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -13,15 +15,16 @@ public class Receipt {
     private Customer customer;
     private LineItem[] lineItems;
     private ReceiptDataAccessStrategy db;
-    private double total = 0.00;
+    private double salesTaxPercent;
     
-    public Receipt(Store store, String customerID, ReceiptDataAccessStrategy db){
+    public Receipt(Store store, String customerID, ReceiptDataAccessStrategy db, double salesTaxPercent){
         setDatabase(db);
         incrementReceiptCount();
         orderDate = new Date();
         setStore(store);
         setCustomer(db.findCustomer(customerID));
         lineItems = new LineItem[0];
+        setSalesTax(salesTaxPercent);
     }
     
     private final void incrementReceiptCount(){
@@ -40,24 +43,60 @@ public class Receipt {
     }
     
     public final String buildReceipt(){
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("en", "US"));
         String s = "";        
-        s += "Order Number: " + getReceiptNum();
-        s += "\n";
-        s += "Customer: " + customer.getCustomerID() + " " + customer.getName();
-        s += "\n";
+        s += "Order Number: " + getReceiptNum() + "  Date of Sale:" + orderDate;
+        s += "\nCustomer: " + customer.getCustomerID() + " " + customer.getName();
+        s += "\n\n";
         s += store.toString();
-        s += "\n";
+        s += "\n\n";
+        s +=   "ID    NAME                 QTY  $EA     $SUB    $DISC";
+        s += "\n--------------------------------------------------------------------";
         for (LineItem l : lineItems){
             s += ("\n" + l.toString());
         }
-        s += total;
+        s += "\n\n";
+        s += "TOTAL BEFORE DISCOUNTS:  " + currencyFormatter.format(calcTotalBeforeDiscounts());
+        s += "\nTOTAL AFTER DISCOUNTS:   " + currencyFormatter.format(calcTotalAfterDiscounts());
+        s += "\nSALES TAX DUE:           " + currencyFormatter.format(calcSalesTaxAmt());
+        s += "\nTOTAL AMOUNT DUE:        " + currencyFormatter.format(calcTotalDue());
+        s += "\n\n";
+        s += "YOU SAVED " + currencyFormatter.format(calcAmtSaved()) + " TODAY!";
+        s += "\n\n";
+        s += "Thank you for shopping at " + store.getName() + "!";
         return s;
     }
     
-    public final void calcTotal(){
+    public final double calcTotalBeforeDiscounts(){
+        double orderTotalBD = 0.00;
         for (LineItem l : lineItems){
-            total += (l.getItemSubtotal() - l.findDiscountAmt());
+            orderTotalBD += (l.getItemSubtotal());
         }
+        return orderTotalBD;
+    }
+    
+    public final double calcTotalAfterDiscounts(){
+        double orderTotalAD = 0.00;
+        for (LineItem l : lineItems){
+            orderTotalAD += (l.getItemSubtotal() - l.findDiscountAmt());
+        }
+        return orderTotalAD;
+    }
+    
+    public final double calcSalesTaxAmt(){
+        return calcTotalAfterDiscounts() * salesTaxPercent;
+    }
+    
+    public final double calcTotalDue(){
+        return calcTotalAfterDiscounts() + calcSalesTaxAmt();
+    }
+    
+    public final double calcAmtSaved(){
+        double amtSaved = 0.00;
+        for (LineItem l : lineItems){
+            amtSaved += l.findDiscountAmt();
+        }
+        return amtSaved;
     }
 
     public final static int getReceiptNum() {
@@ -122,6 +161,19 @@ public class Receipt {
         }
         else {
             throw new IllegalArgumentException("Database cannot be null");
+        }
+    }
+    
+    public final double getSalesTax(){
+        return salesTaxPercent;
+    }
+    
+    public final void setSalesTax(double salesTaxPercent){
+        if(salesTaxPercent >= 0.00){
+            this.salesTaxPercent = salesTaxPercent;
+        }
+        else {
+            throw new IllegalArgumentException("Sales tac must be more than 0.00");
         }
     }
 }

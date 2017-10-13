@@ -1,5 +1,8 @@
 package discountstrategyproject;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 /**
  *
  * @author Isaac
@@ -59,7 +62,9 @@ public class LineItem {
     
     @Override
     public final String toString(){
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("en", "US"));
         return product.getProdId() + "  " + product.getProdName() + "  " + getQty() + "  " +
-                product.getUnitCost() + "  " + itemSubtotal + "  " + discountAmt;
+                currencyFormatter.format(product.getUnitCost()) + "  " + currencyFormatter.format(itemSubtotal) +
+                "  " + currencyFormatter.format(discountAmt);
     }
 }
