@@ -7,6 +7,7 @@ package discountstrategyproject;
 public class PercentOffDiscount implements Discount {
     private double percentOff;
     
+    //discount results in removal of a certain percentage of the price
     public PercentOffDiscount(double percentOff){
         setPercentOff(percentOff);
     }

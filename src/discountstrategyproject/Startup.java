@@ -14,10 +14,11 @@ public class Startup {
         Store store = new Store("Kohl's", "Howell Avenue, Oak Creek, WI  53154", 10);
         InMemoryDatabase db = new InMemoryDatabase();
         
-        //initialize POS system
+        //initialize POS system (takes store, data access, and sales tax as paramaters)
         POSRegister pos = new POSRegister(store, db, 0.056);
         
         //start transactions
+        //new sale requires customer id, add item requires product id and qty
         pos.startNewSale("100");
         pos.addItemToSale("A101", 1);
         pos.addItemToSale("A102", 1);

@@ -1,6 +1,6 @@
 package discountstrategyproject;
 
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -11,11 +11,21 @@ public class POSRegister {
     private Receipt receipt;
     private ReceiptDataAccessStrategy db;
     private double salesTaxPercent;
+    private Employee employee;
     
     public POSRegister(Store store, ReceiptDataAccessStrategy db, double salesTaxPercent) {
         setStore(store);
         setDatabase(db);
         setSalesTax(salesTaxPercent);
+        employee = loginEmployee();
+    }
+    
+    //runs when a POSRegister is created, before transactions can begin; uses employee id to find the employee in the database
+    public final Employee loginEmployee(){
+        String userID = JOptionPane.showInputDialog("Enter Employee ID to use register: ");
+        Employee employee = db.findEmployee(userID);
+        JOptionPane.showMessageDialog(null, employee.getName() + " Logged In Successfully");
+        return employee;
     }
     
     public final Store getStore() {
@@ -44,14 +54,17 @@ public class POSRegister {
         }
     }
     
+    //starting a new sale creates a new ("blank") receipt for each transaction
     public final void startNewSale(String customerID){
-        receipt = new Receipt(store, customerID, db, salesTaxPercent);
+        receipt = new Receipt(store, employee, customerID, db, salesTaxPercent);
     }
     
+    //adds item to the transaction through product id and qty
     public final void addItemToSale(String prodId, double qty){
         receipt.addItem(prodId, qty);
     }
     
+    //outputs receipt to a VideoDisplay for customer approval, then prints receipt to concole
     public final void endSale(){
         VideoDisplay display = new VideoDisplay(receipt);
         display.outputReceipt();
@@ -69,7 +82,20 @@ public class POSRegister {
             this.salesTaxPercent = salesTaxPercent;
         }
         else {
-            throw new IllegalArgumentException("Sales tac must be more than 0.00");
+            throw new IllegalArgumentException("Sales tax must be more than 0.00");
+        }
+    }
+    
+    public final Employee getEmployee(){
+        return employee;
+    }
+    
+    public final void setEmployee(Employee employee){
+        if(employee != null){
+            this.employee = employee;
+        }
+        else {
+            throw new IllegalArgumentException("Employee must not be null");
         }
     }
 }

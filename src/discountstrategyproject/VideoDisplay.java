@@ -13,9 +13,14 @@ public class VideoDisplay implements ReceiptOutput {
         setReceipt(receipt);
     }
     
+    //outputs a "preview" of the receipt to a JOptionPane
     @Override
     public final void outputReceipt() {
         JOptionPane.showMessageDialog(null, receipt.buildReceipt());
+    }
+    
+    public final Receipt getReceipt(){
+        return receipt;
     }
     
     public final void setReceipt(Receipt receipt){

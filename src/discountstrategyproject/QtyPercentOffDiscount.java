@@ -8,6 +8,7 @@ public class QtyPercentOffDiscount implements Discount {
     private double percentOff;
     private double minQty;
     
+    //discount of certain percent off only applicable when required minimum qty is purchased
     public QtyPercentOffDiscount(double percentOff, double minQty){
         setPercentOff(percentOff);
         setMinQty(minQty);

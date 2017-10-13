@@ -20,10 +20,12 @@ public class LineItem {
         discountAmt = findDiscountAmt();
     }
     
+    //uses qty and unit cost to get the item's subtotal
     public final double findItemSubtotal(){
         return qty * product.getUnitCost();
     }
     
+    //returns the amount to remove from the subtotal of an item
     public final double findDiscountAmt(){
         return product.getDiscount().getDiscountAmt(product.getUnitCost(), qty);
     }
@@ -60,6 +62,7 @@ public class LineItem {
         }
     }
     
+    //format the lineItem to be output as Product ID | Name | Qty | Unit Cost | Item Subtotal | Discount Amount
     @Override
     public final String toString(){
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("en", "US"));

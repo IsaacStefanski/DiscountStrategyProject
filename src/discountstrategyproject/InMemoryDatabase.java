@@ -22,6 +22,11 @@ public class InMemoryDatabase implements ReceiptDataAccessStrategy {
         new Product("C244", "Women's Dress      ", 29.99, new PercentOffDiscount(0.1))
     };
     
+    private Employee[] employees = {
+        new Employee("12345", "Billy Bob"),
+        new Employee("67890", "Jane Doe")
+    };
+    
     /**
      * Tries to find a Customer by customer id.
      * @param custId - must not be null or empty
@@ -70,5 +75,30 @@ public class InMemoryDatabase implements ReceiptDataAccessStrategy {
         }
         
         return product;
+    }
+    
+    /**
+     * Tries to find an Employee by employee id.
+     * @param employeeId - must not be null or empty
+     * @return found Employee or null if not found or bad argument
+     */
+    @Override
+    public final Employee findEmployee(final String employeeId) {
+        // validation is needed for method parameter
+        if(employeeId == null || employeeId.length() == 0) {
+            System.out.println("Sorry, FakeDatabase.findProduct method has "
+                    + "illegal argument");
+            return null;  // end method prematurely after log to console
+        }
+        
+        Employee employee = null;
+        for(Employee e : employees) {
+            if(employeeId.equals(e.getEmployeeID())) {
+                employee = e;
+                break;
+            }
+        }
+        
+        return employee;
     }
 }

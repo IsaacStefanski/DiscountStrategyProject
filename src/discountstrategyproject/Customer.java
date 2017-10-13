@@ -4,7 +4,7 @@ package discountstrategyproject;
  *
  * @author Isaac
  */
-public class Customer {
+public class Customer implements Person {
     private String customerID;
     private String name;
     
@@ -26,10 +26,12 @@ public class Customer {
         }
     }
 
+    @Override
     public final String getName() {
         return name;
     }
 
+    @Override
     public final void setName(String name) {
         if(name != null){
             this.name = name;

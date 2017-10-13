@@ -12,16 +12,18 @@ public class Receipt {
     private static int receiptNum = 0;
     private Date orderDate;
     private Store store;
+    private Employee employee;
     private Customer customer;
     private LineItem[] lineItems;
     private ReceiptDataAccessStrategy db;
     private double salesTaxPercent;
     
-    public Receipt(Store store, String customerID, ReceiptDataAccessStrategy db, double salesTaxPercent){
+    public Receipt(Store store, Employee employee, String customerID, ReceiptDataAccessStrategy db, double salesTaxPercent){
         setDatabase(db);
         incrementReceiptCount();
         orderDate = new Date();
         setStore(store);
+        setEmployee(employee);
         setCustomer(db.findCustomer(customerID));
         lineItems = new LineItem[0];
         setSalesTax(salesTaxPercent);
@@ -31,6 +33,7 @@ public class Receipt {
         receiptNum++;
     }
     
+    //increases the size of the lineItems array to add lineItems
     private final void addToLineItemsArray(final LineItem item) {
         LineItem[] tempItems = new LineItem[lineItems.length + 1];
         System.arraycopy(lineItems, 0, tempItems, 0, lineItems.length);
@@ -38,14 +41,17 @@ public class Receipt {
         lineItems = tempItems;
     }
     
+    //creates a lineItem to add to the lineItems array from a product and its qty in the transaction
     public final void addItem(String prodID, double qty){
         addToLineItemsArray(new LineItem(db.findProduct(prodID), qty));
     }
     
+    //returns the receipt as a String
     public final String buildReceipt(){
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("en", "US"));
         String s = "";        
-        s += "Order Number: " + getReceiptNum() + "   Date of Sale: " + orderDate;
+        s += "Receipt Number: " + getReceiptNum() + "   Date of Sale: " + orderDate;
+        s += "\nYour cashier today is " + employee.getName();
         s += "\nCustomer: " + customer.getCustomerID() + " " + customer.getName();
         s += "\n\n";
         s += store.toString();
@@ -67,6 +73,7 @@ public class Receipt {
         return s;
     }
     
+    //returns pre-tax total before discounts
     public final double calcTotalBeforeDiscounts(){
         double orderTotalBD = 0.00;
         for (LineItem l : lineItems){
@@ -75,6 +82,7 @@ public class Receipt {
         return orderTotalBD;
     }
     
+    //returns pre-tax total after discounts are applied
     public final double calcTotalAfterDiscounts(){
         double orderTotalAD = 0.00;
         for (LineItem l : lineItems){
@@ -83,14 +91,17 @@ public class Receipt {
         return orderTotalAD;
     }
     
+    //returns sales tax
     public final double calcSalesTaxAmt(){
         return calcTotalAfterDiscounts() * salesTaxPercent;
     }
     
+    //returns the final amount to be paid by the customer
     public final double calcTotalDue(){
         return calcTotalAfterDiscounts() + calcSalesTaxAmt();
     }
     
+    //returns the amount saved (total of all applied discounts)
     public final double calcAmtSaved(){
         double amtSaved = 0.00;
         for (LineItem l : lineItems){
@@ -174,6 +185,19 @@ public class Receipt {
         }
         else {
             throw new IllegalArgumentException("Sales tac must be more than 0.00");
+        }
+    }
+    
+    public final Employee getEmployee(){
+        return employee;
+    }
+    
+    public final void setEmployee(Employee employee){
+        if(employee != null){
+            this.employee = employee;
+        }
+        else {
+            throw new IllegalArgumentException("Employee must not be null");
         }
     }
 }
