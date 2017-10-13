@@ -14,7 +14,7 @@ public class VideoDisplay implements ReceiptOutput {
     }
     
     @Override
-    public void outputReceipt() {
+    public final void outputReceipt() {
         JOptionPane.showMessageDialog(null, receipt.buildReceipt());
     }
     

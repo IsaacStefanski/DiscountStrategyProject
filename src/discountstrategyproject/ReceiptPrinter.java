@@ -12,7 +12,7 @@ public class ReceiptPrinter implements ReceiptOutput{
     }
     
     @Override
-    public void outputReceipt() {
+    public final void outputReceipt() {
         System.out.println(receipt.buildReceipt());
     }
     
