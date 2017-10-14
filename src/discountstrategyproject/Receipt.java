@@ -46,16 +46,22 @@ public class Receipt {
         addToLineItemsArray(new LineItem(db.findProduct(prodID), qty));
     }
     
-    //returns the receipt as a String
-    public final String buildReceipt(){
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("en", "US"));
-        String s = "";        
+    //returns top portion of receipt
+    public final String buildReceiptHeader(){
+        String s = "";
         s += "Receipt Number: " + getReceiptNum() + "   Date of Sale: " + orderDate;
         s += "\nYour cashier today is " + employee.getName();
         s += "\nCustomer: " + customer.getCustomerID() + " " + customer.getName();
         s += "\n\n";
         s += store.toString();
         s += "\n\n";
+        return s;
+    }
+    
+    //returns body of receipt
+    public final String buildReceiptBody(){
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("en", "US"));
+        String s = "";
         s +=   "ID    NAME                 QTY  $EA     $SUB    $DISC";
         s += "\n--------------------------------------------------------------------";
         for (LineItem l : lineItems){
@@ -71,6 +77,11 @@ public class Receipt {
         s += "\n\n";
         s += "Thank you for shopping at " + store.getName() + "!";
         return s;
+    }
+    
+    //returns the receipt as a String
+    public final String buildReceipt(){
+        return buildReceiptHeader() + buildReceiptBody();
     }
     
     //returns pre-tax total before discounts

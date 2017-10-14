@@ -1,7 +1,6 @@
 package discountstrategyproject;
 
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author Isaac

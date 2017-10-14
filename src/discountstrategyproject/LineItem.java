@@ -30,6 +30,10 @@ public class LineItem {
         return product.getDiscount().getDiscountAmt(product.getUnitCost(), qty);
     }
     
+    public final Product getProduct(){
+        return product;
+    }
+    
     public final void setProduct(Product product){
         if(product != null){
             this.product = product;
