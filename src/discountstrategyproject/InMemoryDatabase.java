@@ -87,7 +87,7 @@ public class InMemoryDatabase implements ReceiptDataAccessStrategy {
     public final Employee findEmployee(final String employeeId) {
         // validation is needed for method parameter
         if(employeeId == null || employeeId.length() == 0) {
-            System.out.println("Sorry, FakeDatabase.findProduct method has "
+            System.out.println("Sorry, FakeDatabase.findEmployee method has "
                     + "illegal argument");
             return null;  // end method prematurely after log to console
         }
