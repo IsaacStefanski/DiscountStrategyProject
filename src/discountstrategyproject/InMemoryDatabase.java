@@ -8,7 +8,8 @@ public class InMemoryDatabase implements ReceiptDataAccessStrategy {
     private Customer[] customers = {
         new Customer("100", "John Smith   "),
         new Customer("200", "Sally Jones  "),
-        new Customer("300", "Bob Clementi ")
+        new Customer("300", "Bob Clementi "),
+        new Customer("000", "-") //default customer without existing customer ID
     };
     
     private Product[] products = {
