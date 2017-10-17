@@ -13,6 +13,11 @@ public class Employee implements Person {
         setEmployeeID(employeeID);
         setName(name);
     }
+    
+    @Override
+    public final String getID(){
+        return getEmployeeID();
+    }
 
     public final String getEmployeeID() {
         return employeeID;

@@ -13,6 +13,11 @@ public class Customer implements Person {
         setCustomerID(customerID);
         setName(name);
     }
+    
+    @Override
+    public final String getID(){
+        return getCustomerID();
+    }
 
     public final String getCustomerID() {
         return customerID;
