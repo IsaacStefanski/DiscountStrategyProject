@@ -66,12 +66,11 @@ public class LineItem {
         }
     }
     
-    //format the lineItem to be output as Product ID | Name | Qty | Unit Cost | Item Subtotal | Discount Amount
     @Override
     public final String toString(){
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("en", "US"));
-        return product.getProdId() + "  " + product.getProdName() + "  " + getQty() + "  " +
-                currencyFormatter.format(product.getUnitCost()) + "  " + currencyFormatter.format(itemSubtotal) +
-                "  " + currencyFormatter.format(discountAmt);
+        return product.getProdId() + "  " + product.getProdName().toUpperCase() +
+                "  " + getQty() + " @ " + currencyFormatter.format(product.getUnitCost()) +
+                "\n       Item subtotal: " + currencyFormatter.format(itemSubtotal) + "   Discount: " + currencyFormatter.format(discountAmt);
     }
 }

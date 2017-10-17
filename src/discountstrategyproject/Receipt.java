@@ -52,9 +52,8 @@ public class Receipt {
         s += "Receipt Number: " + getReceiptNum() + "   Date of Sale: " + orderDate;
         s += "\nYour cashier today is " + employee.getName();
         s += "\nCustomer: " + customer.getCustomerID() + " " + customer.getName();
-        s += "\n\n";
-        s += store.toString();
-        s += "\n\n";
+        s += "\n--------------------------------------------------------------------";
+        s += "\n" + store.toString();
         return s;
     }
     
@@ -62,7 +61,6 @@ public class Receipt {
     public final String buildReceiptBody(){
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("en", "US"));
         String s = "";
-        s +=   "ID    NAME                 QTY  $EA     $SUB    $DISC";
         s += "\n--------------------------------------------------------------------";
         for (LineItem l : lineItems){
             s += ("\n" + l.toString());
