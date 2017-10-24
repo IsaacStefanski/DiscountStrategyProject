@@ -34,7 +34,7 @@ public class LineItem {
         return product;
     }
     
-    public final void setProduct(Product product){
+    public final void setProduct(Product product)throws IllegalArgumentException {
         if(product != null){
             this.product = product;
         } else {
@@ -46,7 +46,7 @@ public class LineItem {
         return qty;
     }
 
-    public final void setQty(double qty) {
+    public final void setQty(double qty)throws IllegalArgumentException {
         if(qty >= 0.0){
             this.qty = qty;
         } else {
@@ -58,7 +58,7 @@ public class LineItem {
         return itemSubtotal;
     }
 
-    public final void setItemSubtotal(double itemSubtotal) {
+    public final void setItemSubtotal(double itemSubtotal) throws IllegalArgumentException  {
         if(itemSubtotal >= 0.0){
             this.itemSubtotal = itemSubtotal;
         } else {

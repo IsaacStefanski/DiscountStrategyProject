@@ -19,8 +19,8 @@ public class Store {
         return name;
     }
 
-    public final void setName(String name) {
-        if(name != null){
+    public final void setName(String name) throws IllegalArgumentException {
+        if(name != null || !name.isEmpty()){
             this.name = name;
         }
         else {
@@ -32,8 +32,8 @@ public class Store {
         return address;
     }
 
-    public final void setAddress(String address) {
-        if(address != null){
+    public final void setAddress(String address) throws IllegalArgumentException {
+        if(address != null || !address.isEmpty()){
             this.address = address;
         }
         else {
@@ -45,7 +45,7 @@ public class Store {
         return storeNum;
     }
 
-    public final void setStoreNum(int storeNum) {
+    public final void setStoreNum(int storeNum) throws IllegalArgumentException {
         if(storeNum > 0){
             this.storeNum = storeNum;
         }

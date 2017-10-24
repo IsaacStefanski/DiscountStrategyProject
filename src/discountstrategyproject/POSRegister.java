@@ -32,7 +32,7 @@ public class POSRegister {
         return store;
     }
 
-    public final void setStore(Store store) {
+    public final void setStore(Store store)throws IllegalArgumentException {
         if(store != null){
             this.store = store;
         }
@@ -45,7 +45,7 @@ public class POSRegister {
         return db;
     }
     
-    public final void setDatabase(ReceiptDataAccessStrategy db){
+    public final void setDatabase(ReceiptDataAccessStrategy db)throws IllegalArgumentException {
         if(db != null){
             this.db = db;
         }
@@ -77,7 +77,7 @@ public class POSRegister {
         return salesTaxPercent;
     }
     
-    public final void setSalesTax(double salesTaxPercent){
+    public final void setSalesTax(double salesTaxPercent) throws IllegalArgumentException {
         if(salesTaxPercent >= 0.00){
             this.salesTaxPercent = salesTaxPercent;
         }
@@ -90,7 +90,7 @@ public class POSRegister {
         return employee;
     }
     
-    public final void setEmployee(Employee employee){
+    public final void setEmployee(Employee employee) throws IllegalArgumentException {
         if(employee != null){
             this.employee = employee;
         }

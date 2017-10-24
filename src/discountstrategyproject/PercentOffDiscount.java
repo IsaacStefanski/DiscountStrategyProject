@@ -21,9 +21,9 @@ public class PercentOffDiscount implements Discount {
         return percentOff;
     }
 
-    public final void setPercentOff(double percentOff) {
+    public final void setPercentOff(double percentOff) throws IllegalArgumentException {
         if(percentOff < 0){
-            throw new IllegalArgumentException("...");
+            throw new IllegalArgumentException("Invalid amount entered");
         }
         this.percentOff = percentOff;
     }

@@ -23,7 +23,7 @@ public class Customer implements Person {
         return customerID;
     }
 
-    public final void setCustomerID(String customerID) {
+    public final void setCustomerID(String customerID) throws IllegalArgumentException {
         if(customerID != null){
             this.customerID = customerID;
         } else {
@@ -37,7 +37,7 @@ public class Customer implements Person {
     }
 
     @Override
-    public final void setName(String name) {
+    public final void setName(String name) throws IllegalArgumentException {
         if(name != null){
             this.name = name;
         } else {

@@ -127,7 +127,7 @@ public class Receipt {
         return orderDate;
     }
 
-    public final void setOrderDate(Date orderDate) {
+    public final void setOrderDate(Date orderDate) throws IllegalArgumentException {
         if(orderDate != null){
             this.orderDate = orderDate;
         } else {
@@ -139,7 +139,7 @@ public class Receipt {
         return store;
     }
 
-    public final void setStore(Store store) {
+    public final void setStore(Store store) throws IllegalArgumentException {
         if(store != null){
             this.store = store;
         } else {
@@ -151,7 +151,7 @@ public class Receipt {
         return customer;
     }
 
-    public final void setCustomer(Customer customer) {
+    public final void setCustomer(Customer customer) throws IllegalArgumentException {
         if(customer != null){
             this.customer = customer;
         } else {
@@ -163,7 +163,7 @@ public class Receipt {
         return lineItems;
     }
 
-    public final void setLineItems(LineItem[] lineItems) {
+    public final void setLineItems(LineItem[] lineItems) throws IllegalArgumentException {
         if(lineItems != null){
             this.lineItems = lineItems;
         } else {
@@ -175,7 +175,7 @@ public class Receipt {
         return db;
     }
     
-    public final void setDatabase(ReceiptDataAccessStrategy db){
+    public final void setDatabase(ReceiptDataAccessStrategy db) throws IllegalArgumentException {
         if(db != null){
             this.db = db;
         }
@@ -188,7 +188,7 @@ public class Receipt {
         return salesTaxPercent;
     }
     
-    public final void setSalesTax(double salesTaxPercent){
+    public final void setSalesTax(double salesTaxPercent) throws IllegalArgumentException {
         if(salesTaxPercent >= 0.00){
             this.salesTaxPercent = salesTaxPercent;
         }
@@ -201,7 +201,7 @@ public class Receipt {
         return employee;
     }
     
-    public final void setEmployee(Employee employee){
+    public final void setEmployee(Employee employee) throws IllegalArgumentException {
         if(employee != null){
             this.employee = employee;
         }

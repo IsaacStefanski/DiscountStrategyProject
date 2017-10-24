@@ -28,7 +28,7 @@ public class QtyPercentOffDiscount implements Discount {
         return percentOff;
     }
 
-    public final void setPercentOff(double percentOff) {
+    public final void setPercentOff(double percentOff) throws IllegalArgumentException {
         if(percentOff < 0){
             throw new IllegalArgumentException("Percent off needs to be more than 0");
         }

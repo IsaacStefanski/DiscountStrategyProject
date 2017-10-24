@@ -34,12 +34,11 @@ public class InMemoryDatabase implements ReceiptDataAccessStrategy {
      * @return found Customer or null if not found or bad argument
      */
     @Override
-    public final Customer findCustomer(final String custId) {
+    public final Customer findCustomer(final String custId) throws IllegalArgumentException {
         // validation is needed for method parameter
         if(custId == null || custId.length() == 0) {
-            System.out.println("Sorry, FakeDatabase.findCustomer method has "
+            throw new IllegalArgumentException("Sorry, FakeDatabase.findCustomer method has "
                     + "illegal argument");
-            return null;  // end method prematurely after log to console
         }
         
         Customer customer = null;
@@ -59,12 +58,11 @@ public class InMemoryDatabase implements ReceiptDataAccessStrategy {
      * @return found Product or null if not found or bad argument
      */
     @Override
-    public final Product findProduct(final String prodId) {
+    public final Product findProduct(final String prodId)throws IllegalArgumentException {
         // validation is needed for method parameter
         if(prodId == null || prodId.length() == 0) {
-            System.out.println("Sorry, FakeDatabase.findProduct method has "
+            throw new IllegalArgumentException("Sorry, FakeDatabase.findProduct method has "
                     + "illegal argument");
-            return null;  // end method prematurely after log to console
         }
         
         Product product = null;
@@ -84,12 +82,11 @@ public class InMemoryDatabase implements ReceiptDataAccessStrategy {
      * @return found Employee or null if not found or bad argument
      */
     @Override
-    public final Employee findEmployee(final String employeeId) {
+    public final Employee findEmployee(final String employeeId)throws IllegalArgumentException {
         // validation is needed for method parameter
         if(employeeId == null || employeeId.length() == 0) {
-            System.out.println("Sorry, FakeDatabase.findEmployee method has "
+            throw new IllegalArgumentException("Sorry, FakeDatabase.findEmployee method has "
                     + "illegal argument");
-            return null;  // end method prematurely after log to console
         }
         
         Employee employee = null;

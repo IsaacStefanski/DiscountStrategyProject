@@ -21,7 +21,7 @@ public class ReceiptPrinter implements ReceiptOutput{
         return receipt;
     }
     
-    public final void setReceipt(Receipt receipt){
+    public final void setReceipt(Receipt receipt) throws IllegalArgumentException {
         if(receipt != null){
             this.receipt = receipt;
         } else {

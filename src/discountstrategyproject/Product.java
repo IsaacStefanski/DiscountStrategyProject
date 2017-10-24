@@ -25,7 +25,7 @@ public class Product {
         return prodId;
     }
 
-    public final void setProdId(String prodId) {
+    public final void setProdId(String prodId) throws IllegalArgumentException {
         if(prodId != null){
             this.prodId = prodId;
         } else {
@@ -37,7 +37,7 @@ public class Product {
         return unitCost;
     }
 
-    public final void setUnitCost(double unitCost) {
+    public final void setUnitCost(double unitCost) throws IllegalArgumentException {
         if(unitCost >= 0.00){
             this.unitCost = unitCost;
         } else {
@@ -49,7 +49,7 @@ public class Product {
         return prodName;
     }
 
-    public final void setProdName(String prodName) {
+    public final void setProdName(String prodName) throws IllegalArgumentException {
         if(prodName != null){
             this.prodName = prodName;
         } else {
@@ -61,7 +61,7 @@ public class Product {
         return discount;
     }
 
-    public final void setDiscount(Discount discount) {
+    public final void setDiscount(Discount discount) throws IllegalArgumentException {
         if(discount != null){
             this.discount = discount;
         } else {
