@@ -12,12 +12,14 @@ public class POSRegister {
     private ReceiptDataAccessStrategy db;
     private double salesTaxPercent;
     private Employee employee;
+    private VideoDisplay display;
     
     public POSRegister(Store store, ReceiptDataAccessStrategy db, double salesTaxPercent) {
         setStore(store);
         setDatabase(db);
         setSalesTax(salesTaxPercent);
         employee = loginEmployee();
+        display = new VideoDisplay();
     }
     
     //runs when a POSRegister is created, before transactions can begin; uses employee id to find the employee in the database
@@ -96,6 +98,19 @@ public class POSRegister {
         }
         else {
             throw new IllegalArgumentException("Employee must not be null");
+        }
+    }
+    
+    public final VideoDisplay getDisplay(){
+        return display;
+    }
+    
+    public final void setDisplay(VideoDisplay display) throws IllegalArgumentException {
+        if(display != null){
+            this.display = display;
+        }
+        else {
+            throw new IllegalArgumentException("Display must not be null");
         }
     }
 }

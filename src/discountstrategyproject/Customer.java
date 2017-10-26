@@ -24,7 +24,7 @@ public class Customer implements Person {
     }
 
     public final void setCustomerID(String customerID) throws IllegalArgumentException {
-        if(customerID != null){
+        if(customerID != null && !customerID.isEmpty()){
             this.customerID = customerID;
         } else {
             throw new IllegalArgumentException("Customer ID cannot be null");

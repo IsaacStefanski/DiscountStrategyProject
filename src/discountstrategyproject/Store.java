@@ -20,7 +20,7 @@ public class Store {
     }
 
     public final void setName(String name) throws IllegalArgumentException {
-        if(name != null || !name.isEmpty()){
+        if(name != null){
             this.name = name;
         }
         else {
