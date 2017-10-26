@@ -17,6 +17,11 @@ public class Startup {
         //initialize POS system (takes store, data access, and sales tax as paramaters)
         POSRegister pos = new POSRegister(store, db, 0.056);
         
+        try{
+            store.setName("Target");
+        } catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
         //start transactions
         //new sale requires customer id, add item requires product id and qty
         pos.startNewSale("100");
