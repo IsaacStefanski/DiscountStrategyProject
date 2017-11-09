@@ -2,6 +2,7 @@ package discountstrategyproject;
 
 import edu.wctc.advjava.ics.dateutilities.DateUtilities;
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -15,7 +16,8 @@ import java.util.Objects;
  */
 public class Receipt {
     private static int receiptNum = 0;
-    private Date orderDate;
+    //private Date orderDate;
+    private LocalDateTime orderDate;
     private DateUtilities util;
     private Store store;
     private Employee employee;
@@ -26,9 +28,10 @@ public class Receipt {
     private double salesTaxPercent;
     
     public Receipt(Store store, Employee employee, String customerID, ReceiptDataAccessStrategy db, double salesTaxPercent){
+        util = new DateUtilities();
         setDatabase(db);
         incrementReceiptCount();
-        orderDate = new Date();
+        orderDate = util.now();
         setStore(store);
         setEmployee(employee);
         setCustomer(db.findCustomer(customerID));
@@ -60,7 +63,7 @@ public class Receipt {
     //returns top portion of receipt
     public final String buildReceiptHeader(){
         String s = "";
-        s += "Receipt Number: " + getReceiptNum() + "   Date of Sale: " + orderDate;
+        s += "Receipt Number: " + getReceiptNum() + "   Date of Sale: " + util.format(orderDate, "MM-dd-yyyy hh:mm");
         s += "\nYour cashier today is " + employee.getName();
         s += "\nCustomer: " + customer.getCustomerID() + " " + customer.getName();
         s += "\n--------------------------------------------------------------------";
@@ -134,11 +137,11 @@ public class Receipt {
         return receiptNum;
     }
 
-    public final Date getOrderDate() {
+    public final LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public final void setOrderDate(Date orderDate) throws IllegalArgumentException {
+    public final void setOrderDate(LocalDateTime orderDate) throws IllegalArgumentException {
         if(orderDate != null){
             this.orderDate = orderDate;
         } else {
