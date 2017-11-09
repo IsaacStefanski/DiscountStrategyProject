@@ -1,8 +1,11 @@
 package discountstrategyproject;
 
+import edu.wctc.advjava.ics.dateutilities.DateUtilities;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  *
@@ -11,6 +14,7 @@ import java.util.Locale;
 public class Receipt {
     private static int receiptNum = 0;
     private Date orderDate;
+    private DateUtilities util;
     private Store store;
     private Employee employee;
     private Customer customer;
@@ -208,5 +212,63 @@ public class Receipt {
         else {
             throw new IllegalArgumentException("Employee must not be null");
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.orderDate);
+        hash = 79 * hash + Objects.hashCode(this.util);
+        hash = 79 * hash + Objects.hashCode(this.store);
+        hash = 79 * hash + Objects.hashCode(this.employee);
+        hash = 79 * hash + Objects.hashCode(this.customer);
+        hash = 79 * hash + Arrays.deepHashCode(this.lineItems);
+        hash = 79 * hash + Objects.hashCode(this.db);
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.salesTaxPercent) ^ (Double.doubleToLongBits(this.salesTaxPercent) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Receipt other = (Receipt) obj;
+        if (Double.doubleToLongBits(this.salesTaxPercent) != Double.doubleToLongBits(other.salesTaxPercent)) {
+            return false;
+        }
+        if (!Objects.equals(this.orderDate, other.orderDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.util, other.util)) {
+            return false;
+        }
+        if (!Objects.equals(this.store, other.store)) {
+            return false;
+        }
+        if (!Objects.equals(this.employee, other.employee)) {
+            return false;
+        }
+        if (!Objects.equals(this.customer, other.customer)) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.lineItems, other.lineItems)) {
+            return false;
+        }
+        if (!Objects.equals(this.db, other.db)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Receipt{" + "orderDate=" + orderDate + ", util=" + util + ", store=" + store + ", employee=" + employee + ", customer=" + customer + ", lineItems=" + lineItems + ", db=" + db + ", salesTaxPercent=" + salesTaxPercent + '}';
     }
 }

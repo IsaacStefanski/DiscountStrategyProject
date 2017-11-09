@@ -1,5 +1,7 @@
 package discountstrategyproject;
 
+import java.util.Objects;
+
 /**
  *
  * @author Isaac
@@ -52,6 +54,39 @@ public class Store {
         else {
             throw new IllegalArgumentException("Store number cannot be 0");
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + Objects.hashCode(this.name);
+        hash = 19 * hash + Objects.hashCode(this.address);
+        hash = 19 * hash + this.storeNum;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Store other = (Store) obj;
+        if (this.storeNum != other.storeNum) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.address, other.address)) {
+            return false;
+        }
+        return true;
     }
     
     @Override

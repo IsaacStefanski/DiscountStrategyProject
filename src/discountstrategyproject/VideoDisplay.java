@@ -1,5 +1,6 @@
 package discountstrategyproject;
 
+import java.util.Objects;
 import javax.swing.JOptionPane;
 /**
  *
@@ -36,5 +37,35 @@ public class VideoDisplay implements ReceiptOutput {
         } else {
             throw new IllegalArgumentException("Null receipt");
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.receipt);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final VideoDisplay other = (VideoDisplay) obj;
+        if (!Objects.equals(this.receipt, other.receipt)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "VideoDisplay{" + "receipt=" + receipt + '}';
     }
 }

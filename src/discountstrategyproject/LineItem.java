@@ -2,6 +2,7 @@ package discountstrategyproject;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  *
@@ -64,6 +65,43 @@ public class LineItem {
         } else {
             throw new IllegalArgumentException("Item subtotal must be at least $0.00");
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.product);
+        hash = 17 * hash + (int) (Double.doubleToLongBits(this.qty) ^ (Double.doubleToLongBits(this.qty) >>> 32));
+        hash = 17 * hash + (int) (Double.doubleToLongBits(this.itemSubtotal) ^ (Double.doubleToLongBits(this.itemSubtotal) >>> 32));
+        hash = 17 * hash + (int) (Double.doubleToLongBits(this.discountAmt) ^ (Double.doubleToLongBits(this.discountAmt) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final LineItem other = (LineItem) obj;
+        if (Double.doubleToLongBits(this.qty) != Double.doubleToLongBits(other.qty)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.itemSubtotal) != Double.doubleToLongBits(other.itemSubtotal)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.discountAmt) != Double.doubleToLongBits(other.discountAmt)) {
+            return false;
+        }
+        if (!Objects.equals(this.product, other.product)) {
+            return false;
+        }
+        return true;
     }
     
     @Override

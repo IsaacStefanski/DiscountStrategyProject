@@ -1,5 +1,6 @@
 package discountstrategyproject;
 
+import java.util.Objects;
 import javax.swing.JOptionPane;
 
 /**
@@ -112,5 +113,55 @@ public class POSRegister {
         else {
             throw new IllegalArgumentException("Display must not be null");
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.store);
+        hash = 29 * hash + Objects.hashCode(this.receipt);
+        hash = 29 * hash + Objects.hashCode(this.db);
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.salesTaxPercent) ^ (Double.doubleToLongBits(this.salesTaxPercent) >>> 32));
+        hash = 29 * hash + Objects.hashCode(this.employee);
+        hash = 29 * hash + Objects.hashCode(this.display);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final POSRegister other = (POSRegister) obj;
+        if (Double.doubleToLongBits(this.salesTaxPercent) != Double.doubleToLongBits(other.salesTaxPercent)) {
+            return false;
+        }
+        if (!Objects.equals(this.store, other.store)) {
+            return false;
+        }
+        if (!Objects.equals(this.receipt, other.receipt)) {
+            return false;
+        }
+        if (!Objects.equals(this.db, other.db)) {
+            return false;
+        }
+        if (!Objects.equals(this.employee, other.employee)) {
+            return false;
+        }
+        if (!Objects.equals(this.display, other.display)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "POSRegister{" + "store=" + store + ", receipt=" + receipt + ", db=" + db + ", salesTaxPercent=" + salesTaxPercent + ", employee=" + employee + ", display=" + display + '}';
     }
 }

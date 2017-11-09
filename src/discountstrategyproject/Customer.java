@@ -1,5 +1,7 @@
 package discountstrategyproject;
 
+import java.util.Objects;
+
 /**
  *
  * @author Isaac
@@ -43,5 +45,39 @@ public class Customer implements Person {
         } else {
             throw new IllegalArgumentException("Customer name cannot be null");
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.customerID);
+        hash = 71 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Customer other = (Customer) obj;
+        if (!Objects.equals(this.customerID, other.customerID)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "customerID=" + customerID + ", name=" + name + '}';
     }
 }
