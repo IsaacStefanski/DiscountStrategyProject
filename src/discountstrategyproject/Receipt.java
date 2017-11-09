@@ -2,8 +2,10 @@ package discountstrategyproject;
 
 import edu.wctc.advjava.ics.dateutilities.DateUtilities;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -18,7 +20,8 @@ public class Receipt {
     private Store store;
     private Employee employee;
     private Customer customer;
-    private LineItem[] lineItems;
+    //private LineItem[] lineItems;
+    private List<LineItem> lineItems;
     private ReceiptDataAccessStrategy db;
     private double salesTaxPercent;
     
@@ -29,7 +32,8 @@ public class Receipt {
         setStore(store);
         setEmployee(employee);
         setCustomer(db.findCustomer(customerID));
-        lineItems = new LineItem[0];
+        //lineItems = new LineItem[0];
+        lineItems = new ArrayList<>();
         setSalesTax(salesTaxPercent);
     }
     
@@ -37,6 +41,7 @@ public class Receipt {
         receiptNum++;
     }
     
+    /*
     //increases the size of the lineItems array to add lineItems
     private final void addToLineItemsArray(final LineItem item) {
         LineItem[] tempItems = new LineItem[lineItems.length + 1];
@@ -44,10 +49,12 @@ public class Receipt {
         tempItems[lineItems.length] = item;
         lineItems = tempItems;
     }
+    */
     
     //creates a lineItem to add to the lineItems array from a product and its qty in the transaction
     public final void addItem(String prodID, double qty){
-        addToLineItemsArray(new LineItem(db.findProduct(prodID), qty));
+        //addToLineItemsArray(new LineItem(db.findProduct(prodID), qty));
+        lineItems.add(new LineItem(db.findProduct(prodID), qty));
     }
     
     //returns top portion of receipt
@@ -163,11 +170,11 @@ public class Receipt {
         }
     }
 
-    public final LineItem[] getLineItems() {
+    public final List<LineItem> getLineItems() {
         return lineItems;
     }
 
-    public final void setLineItems(LineItem[] lineItems) throws IllegalArgumentException {
+    public final void setLineItems(List<LineItem> lineItems) throws IllegalArgumentException {
         if(lineItems != null){
             this.lineItems = lineItems;
         } else {
@@ -216,15 +223,15 @@ public class Receipt {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.orderDate);
-        hash = 79 * hash + Objects.hashCode(this.util);
-        hash = 79 * hash + Objects.hashCode(this.store);
-        hash = 79 * hash + Objects.hashCode(this.employee);
-        hash = 79 * hash + Objects.hashCode(this.customer);
-        hash = 79 * hash + Arrays.deepHashCode(this.lineItems);
-        hash = 79 * hash + Objects.hashCode(this.db);
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.salesTaxPercent) ^ (Double.doubleToLongBits(this.salesTaxPercent) >>> 32));
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.orderDate);
+        hash = 59 * hash + Objects.hashCode(this.util);
+        hash = 59 * hash + Objects.hashCode(this.store);
+        hash = 59 * hash + Objects.hashCode(this.employee);
+        hash = 59 * hash + Objects.hashCode(this.customer);
+        hash = 59 * hash + Objects.hashCode(this.lineItems);
+        hash = 59 * hash + Objects.hashCode(this.db);
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.salesTaxPercent) ^ (Double.doubleToLongBits(this.salesTaxPercent) >>> 32));
         return hash;
     }
 
@@ -258,7 +265,7 @@ public class Receipt {
         if (!Objects.equals(this.customer, other.customer)) {
             return false;
         }
-        if (!Arrays.deepEquals(this.lineItems, other.lineItems)) {
+        if (!Objects.equals(this.lineItems, other.lineItems)) {
             return false;
         }
         if (!Objects.equals(this.db, other.db)) {
